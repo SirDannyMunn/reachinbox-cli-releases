@@ -8,7 +8,7 @@ are required. Works on Linux, macOS, Windows and Git Bash.
 ## Install
 
 ```bash
-npm install --global https://github.com/SirDannyMunn/reachinbox-cli-releases/releases/download/v0.1.0/reachinbox-local-cli-0.1.0.tgz
+npm install --global https://github.com/SirDannyMunn/reachinbox-cli-releases/releases/download/v0.2.0/reachinbox-local-cli-0.2.0.tgz
 reachinbox --help
 ```
 
@@ -19,26 +19,43 @@ a writable npm prefix, or the no-global-install command below.
 ## Run without a global install
 
 ```bash
-npx --yes --package=https://github.com/SirDannyMunn/reachinbox-cli-releases/releases/download/v0.1.0/reachinbox-local-cli-0.1.0.tgz reachinbox --help
+npx --yes --package=https://github.com/SirDannyMunn/reachinbox-cli-releases/releases/download/v0.2.0/reachinbox-local-cli-0.2.0.tgz reachinbox --help
 ```
 
 ## Instructions to give an agent
 
 > Install ReachInbox CLI from this repository's versioned public release using
 > the npm install command above. Verify with `reachinbox --help`. It requires
-> Node.js 22+. A source checkout is unnecessary. Obtain my ReachInbox session
-> token separately before accessing my account; never put it in a command argument,
+> Node.js 22+. A source checkout is unnecessary. Run `reachinbox login` to sign in
+> and save a local session, or obtain a session token separately. Never put secrets in a command argument,
 > source file, or report. Commands that change settings preview by default;
 > use `--apply` only for the settings changes I request.
 
 ## Authentication
 
-Provide your existing ReachInbox session bearer token through `REACHINBOX_TOKEN`,
-`--token-stdin`, or `--token-file /path/to/private-token`. Installation needs no
-ReachInbox credentials. Protect a token file with `chmod 600` on Linux. Session
-expiry requires signing in again and refreshing the token.
+Run `reachinbox login` and enter your ReachInbox email/password at the prompts.
+The password is hidden and never saved. The returned token is verified and saved
+locally, then reused automatically. `reachinbox auth status` shows local session
+identity/expiry without exposing the token; `reachinbox logout` deletes it.
+
+For agents, pipe a password from a secret manager:
+`secret-manager-command | reachinbox login --email you@example.com --password-stdin`.
+No password flag is accepted. Git Bash users whose terminal lacks Node TTY access
+can use stdin or perform interactive login in PowerShell.
+
+The local token is plaintext, restricted to the current user: Linux/macOS use
+`~/.config/reachinbox-cli/session.json` (or XDG_CONFIG_HOME), with file mode 600;
+Windows uses `%APPDATA%\reachinbox-cli\session.json` with a current-user ACL.
+Do not share or commit it. Logout is local only and does not revoke other sessions.
+
+Email/password login is supported. OAuth-only login and browser security or
+verification challenges require the browser. No automatic refresh or challenge
+bypass is provided. Re-run login on expiry. Existing `REACHINBOX_TOKEN`,
+`--token-stdin`, and `--token-file` options override the saved session.
 
 ```bash
+reachinbox login
+reachinbox auth status
 reachinbox warmup industries
 reachinbox accounts list --all
 reachinbox warmup get --id 1234567
