@@ -13,6 +13,7 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 22
-      - run: npm install --prefix .install --ignore-scripts --no-audit --no-fund https://github.com/SirDannyMunn/reachinbox-cli-releases/releases/download/v0.1.0/reachinbox-local-cli-0.1.0.tgz
+      - run: npm install --prefix .install --ignore-scripts --no-audit --no-fund https://github.com/SirDannyMunn/reachinbox-cli-releases/releases/download/v0.2.0/reachinbox-local-cli-0.2.0.tgz
       - run: npm exec --prefix .install -- reachinbox --help
       - run: npm exec --prefix .install -- reachinbox warmup fields
+      - run: npm exec --prefix .install -- reachinbox auth status
