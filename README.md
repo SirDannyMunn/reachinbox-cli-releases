@@ -8,7 +8,7 @@ are required. Works on Linux, macOS, Windows and Git Bash.
 ## Install
 
 ```bash
-npm install --global https://github.com/SirDannyMunn/reachinbox-cli-releases/releases/download/v0.3.0/reachinbox-local-cli-0.3.0.tgz
+npm install --global https://github.com/SirDannyMunn/reachinbox-cli-releases/releases/download/v0.3.1/reachinbox-local-cli-0.3.1.tgz
 reachinbox --help
 ```
 
@@ -19,7 +19,7 @@ a writable npm prefix, or the no-global-install command below.
 ## Run without a global install
 
 ```bash
-npx --yes --package=https://github.com/SirDannyMunn/reachinbox-cli-releases/releases/download/v0.3.0/reachinbox-local-cli-0.3.0.tgz reachinbox --help
+npx --yes --package=https://github.com/SirDannyMunn/reachinbox-cli-releases/releases/download/v0.3.1/reachinbox-local-cli-0.3.1.tgz reachinbox --help
 ```
 
 ## Instructions to give an agent
@@ -108,3 +108,5 @@ The installed README and examples include the full payload guide.
 
 The campaign/list contracts were mapped from signed-in web-app client scripts.
 33 local tests pass; live campaign mutations have not been exercised.
+
+Patch v0.3.1 matches the app campaign-list defaults (all states instead of draft-only). Live campaign/list/detail/configuration and lead pagination reads verified. No campaigns launched or contacts imported during verification.
