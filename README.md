@@ -8,7 +8,7 @@ are required. Works on Linux, macOS, Windows and Git Bash.
 ## Install
 
 ```bash
-npm install --global https://github.com/SirDannyMunn/reachinbox-cli-releases/releases/download/v0.2.0/reachinbox-local-cli-0.2.0.tgz
+npm install --global https://github.com/SirDannyMunn/reachinbox-cli-releases/releases/download/v0.3.0/reachinbox-local-cli-0.3.0.tgz
 reachinbox --help
 ```
 
@@ -19,7 +19,7 @@ a writable npm prefix, or the no-global-install command below.
 ## Run without a global install
 
 ```bash
-npx --yes --package=https://github.com/SirDannyMunn/reachinbox-cli-releases/releases/download/v0.2.0/reachinbox-local-cli-0.2.0.tgz reachinbox --help
+npx --yes --package=https://github.com/SirDannyMunn/reachinbox-cli-releases/releases/download/v0.3.0/reachinbox-local-cli-0.3.0.tgz reachinbox --help
 ```
 
 ## Instructions to give an agent
@@ -79,3 +79,32 @@ No credentials or captured account data are bundled. This is an unofficial tool
 using web-app APIs, which can change independently of these releases.
 
 To remove a global installation: `npm uninstall --global reachinbox-local-cli`.
+
+## Campaigns and lead-list imports (v0.3)
+
+```bash
+reachinbox campaigns list --all
+reachinbox campaigns create --name "Founder outreach" --apply
+reachinbox lists create --name "UK founders" --apply
+# Replace 5501 with the returned list ID. Preview before applying.
+reachinbox leads import --list-id 5501 --file prospects.csv
+reachinbox leads import --list-id 5501 --file prospects.csv --apply --journal import-uk.json
+reachinbox lists leads --id 5501 --all
+```
+
+CSV needs an email column; extra columns become custom fields. JSON arrays also work.
+Use --map mapping.json for source-header-to-field mappings. All rows validate
+before upload; duplicate emails within a file are skipped by default. Imports
+use batches and a progress journal, with no automatic retries after uncertain
+writes. Accepted means queued for background processing, not completed. List
+imports explicitly disable credit-consuming verification.
+
+Commands include campaign sequences, schedules, options, sending-account
+selection, explicit lifecycle actions, lead-list management and campaign lead
+updates/actions. Every mutation previews unless --apply. Creation makes a draft;
+start is a separate explicit command. Importing contacts into a running campaign
+can cause sending. Run reachinbox --help and management operations for details.
+The installed README and examples include the full payload guide.
+
+The campaign/list contracts were mapped from signed-in web-app client scripts.
+33 local tests pass; live campaign mutations have not been exercised.
