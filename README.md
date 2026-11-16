@@ -8,7 +8,7 @@ are required. Works on Linux, macOS, Windows and Git Bash.
 ## Install
 
 ```bash
-npm install --global https://github.com/SirDannyMunn/reachinbox-cli-releases/releases/download/v0.4.0/reachinbox-local-cli-0.4.0.tgz
+npm install --global https://github.com/SirDannyMunn/reachinbox-cli-releases/releases/download/v0.4.1/reachinbox-local-cli-0.4.1.tgz
 reachinbox --help
 ```
 
@@ -19,7 +19,7 @@ a writable npm prefix, or the no-global-install command below.
 ## Run without a global install
 
 ```bash
-npx --yes --package=https://github.com/SirDannyMunn/reachinbox-cli-releases/releases/download/v0.4.0/reachinbox-local-cli-0.4.0.tgz reachinbox --help
+npx --yes --package=https://github.com/SirDannyMunn/reachinbox-cli-releases/releases/download/v0.4.1/reachinbox-local-cli-0.4.1.tgz reachinbox --help
 ```
 
 ## Instructions to give an agent
@@ -109,10 +109,14 @@ The installed README and examples include the full payload guide.
 The campaign/list contracts were mapped from signed-in web-app client scripts.
 33 local tests pass; live campaign mutations have not been exercised.
 
-Patch v0.4.0 matches the app campaign-list defaults (all states instead of draft-only). Live campaign/list/detail/configuration and lead pagination reads verified. No campaigns launched or contacts imported during verification.
+Patch v0.4.1 matches the app campaign-list defaults (all states instead of draft-only). Live campaign/list/detail/configuration and lead pagination reads verified. No campaigns launched or contacts imported during verification.
 
-## ReachDesk dashboard (v0.4.0)
+## ReachDesk dashboard (v0.4.1)
 
 Run `reachinbox dashboard` to start the dashboard at `http://localhost:8789`. Use `--email you@example.com` if you have not saved a CLI session, and sign in with your ReachInbox credentials. `--import-session` seeds collection from a saved CLI session. Node 22.13+ required; Docker uses Node 24.
 
 Includes SQLite warm-up history, account/tag charts, CSV exports, previewed bulk settings, account forms, campaigns, lead lists, journaled CSV/JSON imports and the full API tool catalog. The package includes a Dockerfile, Compose example and dashboard deployment/security guide. Persist `/data` and configure an HTTPS origin plus allowed owner email for Coolify hosting. Private source repository stays private. No account data or sessions are included.
+
+### Cumulative chart update
+
+The dashboard View selector switches between daily activity and cumulative totals for the selected period, grouped by account or tag. Reported zero days stay flat; missing observations remain gaps and are excluded from totals. Health scores cannot be summed. CSV downloads identify the selected metric/view; this release also corrects dashboard CSV serialization.
